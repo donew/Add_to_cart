@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Add to cart</title>
+    <style>
+       .fc_hidden{display:none}.cart-button{position:absolute;top:30px;right:500px;background-color:maroon;color:#fff;padding:40px;-webkit-border-radius:50px;border-radius:50px;-moz-border-radius:50px;font-size:20px;font-weight:700}.cart-container{height:400px;width:100%}.cart-container .addtocart{border:0;padding:10px;cursor:pointer}.original{position:relative}.move-original{height:90px;position:absolute}
+    </style>    
+</head>
+
+<body>
+    <!-- Add To cart feature -->
+    <div class="cart-container">
+        <div class="cart-button">Cart</div>
+        <img class="original" src="http://cdn.firstcry.com/brainbees/images/products/box/391556a.jpg" />
+        <img class="move-original fc_hidden" src="" />
+        <input class="addtocart" type="button" value="Add To Cart" />
+    </div>
+    <!--Add to cart feature end here -->
+
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //animate to functoin will animate the particular thing to particular area
+            $.fn.animateTo = function (obj) {
+                $(this).css('position', 'absolute');
+                $(this).animate({ 'left': $carticon.position().left, top: $carticon.position().top }, {
+                    complete: function () {
+                        $move_original.fadeOut(200);
+                    }
+                });
+            };
+            //animate to end here
+            //Pass the class name of the image which will carry the image snapshot.
+            var $move_original = $(".move-original");
+            //Pass the class name of the original image from where it will get time image dynamically.
+            var $original = $(".original");
+            //Pass the class of cart icon
+            var $carticon = $(".cart-button");
+
+            //Replace addtocart with your cart class or id
+            $(".addtocart").click(function () {
+                $move_original.css({ 'top': $original.position().top + ($original.height() / 2), 'left': $original.position().left + ($original.width() / 2) });
+                $move_original.attr('src', $original.attr('src'));
+                $move_original.fadeIn("100");
+                //Calling animateTo Function. 
+                $move_original.animateTo($carticon);
+            });
+        });
+    </script>
+</body>
+</html>
